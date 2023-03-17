@@ -8,6 +8,7 @@ class BackendOrderApplicationTests {
 
 	@Test
 	fun contextLoads() {
+		main(emptyArray())
 	}
 
 }
