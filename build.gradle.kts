@@ -58,9 +58,6 @@ tasks.withType<Test> {
 tasks.jacocoTestCoverageVerification {
 	violationRules {
 		rule {
-			excludes = listOf(
-				""
-			)
 			limit {
 				minimum = "0.9".toBigDecimal()
 			}
