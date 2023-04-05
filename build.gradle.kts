@@ -38,6 +38,8 @@ dependencies {
 	detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
 	// Cart Response
 	implementation("com.hrv.mart:cart-response:0.0.1")
+	// Order Response
+	implementation("com.hrv.mart:order-library:0.0.1")
 	// Kafka
 	implementation("io.projectreactor.kafka:reactor-kafka")
 	implementation("org.springframework.kafka:spring-kafka")

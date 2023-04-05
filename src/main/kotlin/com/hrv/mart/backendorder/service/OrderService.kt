@@ -1,7 +1,7 @@
 package com.hrv.mart.backendorder.service
 
-import com.hrv.mart.backendorder.model.OrderRequest
 import com.hrv.mart.backendorder.repository.OrderRepository
+import com.hrv.mart.orderlibrary.model.OrderRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
