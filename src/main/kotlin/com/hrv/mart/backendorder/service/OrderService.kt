@@ -12,7 +12,7 @@ class OrderService(
 )
 {
     fun getUserOrders(userId: String) =
-            orderRepository.findOrdersByUserId(userId)
+        orderRepository.findOrdersByUserId(userId)
     fun addOrder(order: OrderRequest) =
         orderRepository.insert(order.getOrderResponse())
 }
