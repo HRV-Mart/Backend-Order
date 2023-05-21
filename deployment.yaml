@@ -19,6 +19,15 @@ spec:
           image: harsh3305/hrv-mart-backend-order
           ports:
             - containerPort: 8085
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                configMapKeyRef:
+                  key: mongodb_uri
+            - name: KAFKA_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: kafka_url
 ---
 apiVersion: v1
 kind: Service
