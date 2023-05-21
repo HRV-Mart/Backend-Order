@@ -15,6 +15,7 @@ on:
 env:
   MONGODB_URI: ${{ secrets.MONGODB_URI }}
   APPLICATION_PORT: ${{ secrets.PORT }}
+  KAFKA_URL: ${{ secrets.KAFKA_URL }
   USERNAME: ${{secrets.OSSRH_USERNAME}}
   TOKEN: ${{secrets.OSSRH_TOKEN}}
 jobs:
