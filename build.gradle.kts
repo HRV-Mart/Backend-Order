@@ -44,6 +44,8 @@ dependencies {
 	implementation("io.projectreactor.kafka:reactor-kafka")
 	implementation("org.springframework.kafka:spring-kafka")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
+	// Actoator
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
 detekt {
 	toolVersion = "1.22.0"
