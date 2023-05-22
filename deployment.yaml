@@ -19,27 +19,17 @@ spec:
           image: harsh3305/hrv-mart-backend-order
           ports:
             - containerPort: 8085
-          livenessProbe:
-            httpGet:
-              path: /actuator/health/liveness
-              port: 8085
-            initialDelaySeconds: 3
-            periodSeconds: 3
-          readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
-              port: 8085
-            initialDelaySeconds: 3
-            periodSeconds: 3
           env:
             - name: MONGODB_URI
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: mongodb_uri
+                  name: secret
             - name: KAFKA_URL
               valueFrom:
                 configMapKeyRef:
-                  key: kafka_url
+                  name: config-map
+                  key: kafka-url
 ---
 apiVersion: v1
 kind: Service
