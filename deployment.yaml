@@ -22,9 +22,9 @@ spec:
           env:
             - name: MONGODB_URI
               valueFrom:
-                secretKeyRef:
-                  key: mongodb_uri
-                  name: secret
+                configMapKeyRef:
+                  key: mongodb-uri
+                  name: config-map
             - name: KAFKA_URL
               valueFrom:
                 configMapKeyRef:
