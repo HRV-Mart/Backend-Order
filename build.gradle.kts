@@ -44,7 +44,7 @@ dependencies {
 	implementation("io.projectreactor.kafka:reactor-kafka")
 	implementation("org.springframework.kafka:spring-kafka")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
-	// Actoator
+	// Actuator
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
 detekt {
