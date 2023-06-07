@@ -39,12 +39,12 @@ dependencies {
 	// Cart Response
 	implementation("com.hrv.mart:cart-response:0.0.1")
 	// Order Response
-	implementation("com.hrv.mart:order-library:0.0.2")
+	implementation("com.hrv.mart:order-library:0.0.3")
 	// Kafka
 	implementation("io.projectreactor.kafka:reactor-kafka")
 	implementation("org.springframework.kafka:spring-kafka")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
-	// Actoator
+	// Actuator
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
 detekt {
