@@ -40,12 +40,14 @@ dependencies {
 	implementation("com.hrv.mart:cart-response:0.0.1")
 	// Order Response
 	implementation("com.hrv.mart:order-library:0.0.3")
+	// Cart Response
+	implementation("com.hrv.mart:cart-response:0.0.1")
+	// Custom-Pageable
+	implementation("com.hrv.mart:custom-pageable:0.0.1-SNAPSHOT")
 	// Kafka
 	implementation("io.projectreactor.kafka:reactor-kafka")
 	implementation("org.springframework.kafka:spring-kafka")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
-	// Actuator
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
 detekt {
 	toolVersion = "1.22.0"

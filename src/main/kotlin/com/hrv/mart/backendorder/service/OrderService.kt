@@ -7,6 +7,8 @@ import com.hrv.mart.orderlibrary.model.OrderResponse
 import com.hrv.mart.orderlibrary.model.order.Order
 import com.hrv.mart.orderlibrary.model.order.ProductOrdered
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
@@ -18,12 +20,25 @@ class OrderService(
     private val productOrderedRepository: ProductOrderedRepository
 )
 {
-    fun getUserOrders(userId: String) =
+    fun getUserOrders(
+        userId: String,
+        pageRequest: PageRequest
+    ) =
         orderRepository
-            .findOrdersByUserId(userId)
+            .findOrdersByUserId(
+                userId,
+            )
             .flatMap { order ->
                 productOrderedRepository
-                    .findProductOrderedByOrderId(order.orderId)
+                    .findProductOrderedByOrderId(
+                        order.orderId,
+                        pageRequest.withSort(
+                            Sort.by(
+                                Sort.Direction.DESC,
+                                "dateTimeOfOrder"
+                            )
+                        )
+                    )
                     .collectList()
                     .map {
                         OrderResponse.parseFrom(
