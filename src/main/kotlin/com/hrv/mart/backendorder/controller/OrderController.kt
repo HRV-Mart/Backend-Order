@@ -45,6 +45,7 @@ class OrderController (
         @RequestParam page: Optional<Int>
     ) =
         orderService.applyFilterOnOrder(
+            orderQuery,
             CustomPageRequest
                 .getPageRequest(
                     optionalSize = size,
