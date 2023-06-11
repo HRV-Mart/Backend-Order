@@ -1,5 +1,6 @@
 package com.hrv.mart.backendorder.controller
 
+import com.hrv.mart.backendorder.model.OrderQuery
 import com.hrv.mart.backendorder.service.OrderService
 import com.hrv.mart.custompageable.CustomPageRequest
 import com.hrv.mart.orderlibrary.model.OrderRequest
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -35,9 +38,19 @@ class OrderController (
                         optionalSize = size
                     )
             )
-    @GetMapping()
-    fun temp() =
-        orderService.temp()
+    @PostMapping
+    fun applyFilteringAndSorting(
+        @RequestBody orderQuery: OrderQuery,
+        @RequestParam size: Optional<Int>,
+        @RequestParam page: Optional<Int>
+    ) =
+        orderService.applyFilterOnOrder(
+            CustomPageRequest
+                .getPageRequest(
+                    optionalSize = size,
+                    optionalPage = page
+                )
+        )
     @KafkaListener(
         topics = [OrderTopics.createOrderTopic],
         groupId = "\${spring.kafka.consumer.group-id}"
