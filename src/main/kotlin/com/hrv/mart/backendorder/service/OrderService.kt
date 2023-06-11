@@ -1,20 +1,19 @@
 package com.hrv.mart.backendorder.service
 
+import com.hrv.mart.backendorder.model.OrderDate
+import com.hrv.mart.backendorder.model.OrderQuery
 import com.hrv.mart.backendorder.repository.OrderRepository
 import com.hrv.mart.backendorder.repository.ProductOrderedRepository
 import com.hrv.mart.orderlibrary.model.OrderRequest
 import com.hrv.mart.orderlibrary.model.OrderResponse
-import com.hrv.mart.orderlibrary.model.Status
 import com.hrv.mart.orderlibrary.model.order.Order
 import com.hrv.mart.orderlibrary.model.order.ProductOrdered
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Service
@@ -52,16 +51,16 @@ class OrderService(
                         )
                     }
             }
-//    fun temp() =
-//        orderRepository.findOrderByStatusIn(listOf(Status.PROCESS))
-    fun temp() : Flux<Order>{
-        val pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss", Locale.ROOT)
-        return orderRepository.findOrderByStatusInAndDateTimeOfOrderBetween(
-            status = listOf(Status.PROCESS),
-            start = LocalDateTime.parse("2023-06-10:12:46:41", pattern),
-            end = LocalDateTime.parse("2023-06-11:14:46:41", pattern)
+    fun applyFilterOnOrder(
+    orderQuery: OrderQuery,
+    pageRequest: PageRequest
+    ) =
+        orderRepository.findOrderByStatusInAndDateTimeOfOrderBetween(
+            status = orderQuery.status,
+            start = LocalDateTime.parse(orderQuery.startingDate.parseToString(true), OrderDate.getDateTimeFormat()),
+            end = LocalDateTime.parse(orderQuery.startingDate.parseToString(true), OrderDate.getDateTimeFormat()),
+            pageRequest = pageRequest
         )
-    }
 
     fun addOrder(orderRequest: OrderRequest): Mono<String> {
         val order = Order.parseFrom(orderRequest)
