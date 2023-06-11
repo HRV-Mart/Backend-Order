@@ -9,6 +9,16 @@ data class OrderDate (
     val month: Int,
     val date: Int,
 ) {
+    fun parseToString(isStarting: Boolean): String{
+        val time =
+            if (isStarting) {
+                "00:00:00"
+            }
+            else {
+                "23:59:59"
+            }
+        return LocalDate.of(year, month, date).toString() + ":${time}"
+    }
     companion object {
         fun getMaxDate() =
             toOrderDate(LocalDate.MAX)
@@ -22,15 +32,5 @@ data class OrderDate (
                 month = date.month.value,
                 date = date.dayOfMonth
             )
-    }
-    fun parseToString(isStarting: Boolean): String{
-        val time =
-            if (isStarting) {
-                "00:00:00"
-            }
-            else {
-                "23:59:59"
-            }
-        return LocalDate.of(year, month, date).toString() + ":${time}"
     }
 }
