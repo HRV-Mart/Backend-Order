@@ -52,6 +52,24 @@ class OrderService(
                         )
                     }
             }
+            .collectList()
+            .flatMap { data ->
+                orderRepository
+                    .countOrdersByUserId(
+                        userId
+                    )
+                    .map { totalSize ->
+                        Pageable(
+                            data = data,
+                            nextPage = Pageable.getNextPage(
+                                pageSize = pageRequest.pageSize.toLong(),
+                                page = pageRequest.pageNumber.toLong(),
+                                totalSize = totalSize
+                            ),
+                            size = pageRequest.pageSize.toLong()
+                        )
+                    }
+            }
     fun applyFilterOnOrder(
     orderQuery: OrderQuery,
     pageRequest: PageRequest
