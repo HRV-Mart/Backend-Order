@@ -8,5 +8,5 @@ import reactor.core.publisher.Flux
 
 @Repository
 interface ProductOrderedRepository: ReactiveMongoRepository<ProductOrdered, String> {
-    fun findProductOrderedByOrderId(orderId: String, pageRequest: PageRequest): Flux<ProductOrdered>
+    fun findProductOrderedByOrderId(orderId: String): Flux<ProductOrdered>
 }
