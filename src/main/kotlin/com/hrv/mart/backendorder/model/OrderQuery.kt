@@ -10,5 +10,6 @@ data class OrderQuery (
         Status.CANCELLED
     ),
     val startingDate: OrderDate = OrderDate.getMinDate(),
-    val endingDate: OrderDate = OrderDate.getMaxDate()
+    val endingDate: OrderDate = OrderDate.getMaxDate(),
+    val sortInDecreasingDateOrder: Boolean = true
 )
