@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import java.time.LocalDateTime
 
 @Repository
@@ -17,4 +18,9 @@ interface OrderRepository: ReactiveMongoRepository<Order, String> {
         end: LocalDateTime,
         pageRequest: PageRequest
     ): Flux<Order>
+    fun countOrderByStatusInAndDateTimeOfOrderBetween(
+        status: List<Status>,
+        start: LocalDateTime,
+        end: LocalDateTime,
+    ): Mono<Long>
 }
