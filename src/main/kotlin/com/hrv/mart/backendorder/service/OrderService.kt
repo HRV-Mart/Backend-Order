@@ -60,6 +60,12 @@ class OrderService(
             start = LocalDateTime.parse(orderQuery.startingDate.parseToString(true), OrderDate.getDateTimeFormat()),
             end = LocalDateTime.parse(orderQuery.endingDate.parseToString(false), OrderDate.getDateTimeFormat()),
             pageRequest = pageRequest
+                .withSort(
+                    Sort.by(
+                        orderQuery.getSortingOrder(),
+                        "dateTimeOfOrder"
+                    )
+                )
         )
 
     fun addOrder(orderRequest: OrderRequest): Mono<String> {
