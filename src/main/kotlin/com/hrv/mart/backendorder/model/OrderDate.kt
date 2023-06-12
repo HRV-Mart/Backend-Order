@@ -9,7 +9,7 @@ data class OrderDate (
     val month: Int,
     val date: Int,
 ) {
-    fun parseToString(isStarting: Boolean): String{
+    fun parseToString(isStarting: Boolean): String {
         val time =
             if (isStarting) {
                 "00:00:00"
