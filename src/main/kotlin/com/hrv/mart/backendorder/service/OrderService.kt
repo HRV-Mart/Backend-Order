@@ -58,8 +58,24 @@ class OrderService(
     ) =
         orderRepository.findOrderByStatusInAndDateTimeOfOrderBetween(
             status = orderQuery.status,
-            start = LocalDateTime.parse(orderQuery.startingDate.parseToString(true), OrderDate.getDateTimeFormat()),
-            end = LocalDateTime.parse(orderQuery.endingDate.parseToString(false), OrderDate.getDateTimeFormat()),
+            start = LocalDateTime.parse(
+                orderQuery
+                    .startingDate.
+                    parseToString(
+                        true
+                    ),
+                OrderDate
+                    .getDateTimeFormat()
+            ),
+            end = LocalDateTime.parse(
+                orderQuery
+                    .endingDate
+                    .parseToString(
+                        false
+                    ),
+                OrderDate
+                        .getDateTimeFormat()
+            ),
             pageRequest = pageRequest
                 .withSort(
                     Sort.by(
@@ -73,8 +89,24 @@ class OrderService(
                 orderRepository
                     .countOrderByStatusInAndDateTimeOfOrderBetween(
                         status = orderQuery.status,
-                        start = LocalDateTime.parse(orderQuery.startingDate.parseToString(true), OrderDate.getDateTimeFormat()),
-                        end = LocalDateTime.parse(orderQuery.endingDate.parseToString(false), OrderDate.getDateTimeFormat()),
+                        start = LocalDateTime.parse(
+                            orderQuery
+                                .startingDate.
+                                parseToString(
+                                    true
+                                ),
+                            OrderDate
+                                .getDateTimeFormat()
+                        ),
+                        end = LocalDateTime.parse(
+                            orderQuery
+                                .endingDate
+                                .parseToString(
+                                    false
+                                ),
+                            OrderDate
+                                .getDateTimeFormat()
+                        )
                     )
                     .map { size ->
                         Pageable(
