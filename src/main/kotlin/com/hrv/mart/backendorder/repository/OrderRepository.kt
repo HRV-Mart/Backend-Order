@@ -12,6 +12,7 @@ import java.time.LocalDateTime
 @Repository
 interface OrderRepository: ReactiveMongoRepository<Order, String> {
     fun findOrdersByUserId(userId: String): Flux<Order>
+    fun countOrdersByUserId(userId: String): Mono<Long>
     fun findOrderByStatusInAndDateTimeOfOrderBetween(
         status: List<Status>,
         start: LocalDateTime,
