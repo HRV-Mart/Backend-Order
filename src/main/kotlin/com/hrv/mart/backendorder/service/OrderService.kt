@@ -4,6 +4,7 @@ import com.hrv.mart.backendorder.model.OrderDate
 import com.hrv.mart.backendorder.model.OrderQuery
 import com.hrv.mart.backendorder.repository.OrderRepository
 import com.hrv.mart.backendorder.repository.ProductOrderedRepository
+import com.hrv.mart.custompageable.Pageable
 import com.hrv.mart.orderlibrary.model.OrderRequest
 import com.hrv.mart.orderlibrary.model.OrderResponse
 import com.hrv.mart.orderlibrary.model.order.Order
@@ -67,6 +68,26 @@ class OrderService(
                     )
                 )
         )
+            .collectList()
+            .flatMap { data ->
+                orderRepository
+                    .countOrderByStatusInAndDateTimeOfOrderBetween(
+                        status = orderQuery.status,
+                        start = LocalDateTime.parse(orderQuery.startingDate.parseToString(true), OrderDate.getDateTimeFormat()),
+                        end = LocalDateTime.parse(orderQuery.endingDate.parseToString(false), OrderDate.getDateTimeFormat()),
+                    )
+                    .map { size ->
+                        Pageable(
+                            data=data,
+                            nextPage = Pageable.getNextPage(
+                                pageSize = pageRequest.pageSize.toLong(),
+                                page = pageRequest.pageNumber.toLong(),
+                                totalSize = size
+                            ),
+                            size = pageRequest.pageSize.toLong()
+                        )
+                    }
+            }
 
     fun addOrder(orderRequest: OrderRequest): Mono<String> {
         val order = Order.parseFrom(orderRequest)
