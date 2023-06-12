@@ -12,6 +12,8 @@ import com.hrv.mart.orderlibrary.model.order.ProductOrdered
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.http.HttpStatus
+import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 import java.time.LocalDateTime
@@ -36,13 +38,7 @@ class OrderService(
             .flatMap { order ->
                 productOrderedRepository
                     .findProductOrderedByOrderId(
-                        order.orderId,
-                        pageRequest.withSort(
-                            Sort.by(
-                                Sort.Direction.DESC,
-                                "dateTimeOfOrder"
-                            )
-                        )
+                        order.orderId
                     )
                     .collectList()
                     .map {
@@ -69,6 +65,31 @@ class OrderService(
                             size = pageRequest.pageSize.toLong()
                         )
                     }
+            }
+    fun getOrderByOrderIdAndUserId(orderId: String, userId: String, response: ServerHttpResponse) =
+        orderRepository
+            .existsByOrderIdAndUserId(orderId, userId)
+            .flatMap {
+                if (it) {
+                    orderRepository
+                        .findOrderByOrderIdAndUserId(orderId, userId)
+                        .flatMap {  order ->
+                            productOrderedRepository
+                                .findProductOrderedByOrderId(orderId)
+                                .collectList()
+                                .map { productList->
+                                    OrderResponse
+                                        .parseFrom(
+                                            order = order,
+                                            productOrdered = productList
+                                        )
+                                }
+                        }
+                }
+                else {
+                    response.statusCode = HttpStatus.NOT_FOUND
+                    return@flatMap Mono.empty<OrderResponse>()
+                }
             }
     fun applyFilterOnOrder(
     orderQuery: OrderQuery,
