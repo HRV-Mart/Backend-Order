@@ -7,7 +7,7 @@ import java.util.*
 data class OrderDate (
     val year: Int,
     val month: Int,
-    val date: Int,
+    val day: Int,
 ) {
     fun parseToString(isStarting: Boolean): String {
         val time =
@@ -17,20 +17,20 @@ data class OrderDate (
             else {
                 "23:59:59"
             }
-        return LocalDate.of(year, month, date).toString() + ":${time}"
+        return LocalDate.of(year, month, day).toString() + ":${time}"
     }
     companion object {
         fun getMaxDate() =
-            toOrderDate(LocalDate.MAX)
+            toOrderDate(LocalDate.now())
         fun getMinDate() =
             toOrderDate(LocalDate.MIN)
         fun getDateTimeFormat() =
             DateTimeFormatter.ofPattern("yyyy-MM-dd:HH:mm:ss", Locale.ROOT)
         private fun toOrderDate(date: LocalDate) =
             OrderDate(
-                year = date.year,
+                year = maxOf(date.year, 1),
                 month = date.month.value,
-                date = date.dayOfMonth
+                day = date.dayOfMonth
             )
     }
 }
