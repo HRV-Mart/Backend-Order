@@ -1,6 +1,7 @@
 package com.hrv.mart.backendorder.model
 
 import com.hrv.mart.orderlibrary.model.Status
+import org.springframework.data.domain.Sort
 
 data class OrderQuery (
     val status: List<Status> = listOf(
@@ -12,4 +13,10 @@ data class OrderQuery (
     val startingDate: OrderDate = OrderDate.getMinDate(),
     val endingDate: OrderDate = OrderDate.getMaxDate(),
     val sortInDecreasingDateOrder: Boolean = true
-)
+) {
+    fun getSortingOrder() =
+        if (this.sortInDecreasingDateOrder)
+            Sort.Direction.DESC
+        else
+            Sort.Direction.ASC
+}
