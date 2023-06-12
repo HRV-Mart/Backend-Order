@@ -6,6 +6,7 @@ import com.hrv.mart.custompageable.CustomPageRequest
 import com.hrv.mart.orderlibrary.model.OrderRequest
 import com.hrv.mart.orderlibrary.model.OrderTopics
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -37,6 +38,18 @@ class OrderController (
                         optionalPage = page,
                         optionalSize = size
                     )
+            )
+    @GetMapping("/{userId}/{orderId}")
+    fun getOrderByUserIdAndOrderId(
+        @PathVariable userId: String,
+        @PathVariable orderId: String,
+        response: ServerHttpResponse
+    ) =
+        orderService
+            .getOrderByOrderIdAndUserId(
+                orderId = orderId,
+                userId = userId,
+                response = response
             )
     @PostMapping
     fun applyFilteringAndSorting(
