@@ -69,9 +69,8 @@ class OrderController (
         topics = [OrderTopics.createOrderTopic],
         groupId = "\${spring.kafka.consumer.group-id}"
     )
-    fun addCartToOrder(orderRequest: OrderRequest): Mono<Void> {
-        orderService.addOrder(orderRequest)
-            .block()
-        return Mono.empty()
-    }
+    fun addCartToOrder(orderRequest: OrderRequest) =
+        orderService
+            .addOrder(orderRequest)
+            .then(Mono.empty<Void>())
 }
