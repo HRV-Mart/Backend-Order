@@ -48,6 +48,9 @@ dependencies {
 	implementation("io.projectreactor.kafka:reactor-kafka")
 	implementation("org.springframework.kafka:spring-kafka")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
+	// Test-Container
+	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+	testImplementation("org.testcontainers:mongodb")
 }
 detekt {
 	toolVersion = "1.22.0"
@@ -63,8 +66,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 	// To run Jacoco Test Coverage Verification
-	// Uncomment this later
-	// finalizedBy("jacocoTestCoverageVerification")
+	 finalizedBy("jacocoTestCoverageVerification")
 }
 tasks.jacocoTestCoverageVerification {
 	violationRules {
