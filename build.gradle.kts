@@ -39,7 +39,7 @@ dependencies {
 	// Cart Response
 	implementation("com.hrv.mart:cart-response:0.0.1")
 	// Order Response
-	implementation("com.hrv.mart:order-library:0.0.3")
+	implementation("com.hrv.mart:order-library:0.0.6")
 	// Cart Response
 	implementation("com.hrv.mart:cart-response:0.0.1")
 	// Custom-Pageable
@@ -48,6 +48,9 @@ dependencies {
 	implementation("io.projectreactor.kafka:reactor-kafka")
 	implementation("org.springframework.kafka:spring-kafka")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
+	// Test-Container
+	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+	testImplementation("org.testcontainers:mongodb")
 }
 detekt {
 	toolVersion = "1.22.0"
@@ -63,8 +66,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 	// To run Jacoco Test Coverage Verification
-	// Uncomment this later
-	// finalizedBy("jacocoTestCoverageVerification")
+	 finalizedBy("jacocoTestCoverageVerification")
 }
 tasks.jacocoTestCoverageVerification {
 	violationRules {
