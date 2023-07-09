@@ -39,7 +39,7 @@ dependencies {
 	// Cart Response
 	implementation("com.hrv.mart:cart-response:0.0.1")
 	// Order Response
-	implementation("com.hrv.mart:order-library:0.0.3")
+	implementation("com.hrv.mart:order-library:0.0.6")
 	// Cart Response
 	implementation("com.hrv.mart:cart-response:0.0.1")
 	// Custom-Pageable
