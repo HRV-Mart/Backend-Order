@@ -43,7 +43,7 @@ dependencies {
 	// Cart Response
 	implementation("com.hrv.mart:cart-response:0.0.1")
 	// Custom-Pageable
-	implementation("com.hrv.mart:custom-pageable:0.0.1-SNAPSHOT")
+	implementation("com.hrv.mart:custom-pageable:0.0.2")
 	// Kafka
 	implementation("io.projectreactor.kafka:reactor-kafka")
 	implementation("org.springframework.kafka:spring-kafka")
